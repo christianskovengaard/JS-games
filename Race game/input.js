@@ -32,22 +32,18 @@ function keyPressed(event){
     //console.log(event.keyCode);
     
     if(event.keyCode == KEY_LEFT_ARROW){
-        carAng -= 0.05;
         keyHeld_TurnLeft = true;
     }
     
     if(event.keyCode == KEY_UP_ARROW){
-        carSpeed += 0.05;
          keyHeld_Gas = true;
     }
     
     if(event.keyCode == KEY_DOWN_ARROW){
-        carSpeed -= 0.05;
         keyHeld_Reverse = true;
     }
     
     if(event.keyCode == KEY_RIGHT_ARROW){
-        carAng += 0.05;
         keyHeld_TurnRight = true;
     }   
     
