@@ -1,6 +1,8 @@
 
 var canvas, canvasContext;
 
+var blueCar = new Car();
+var greenCar = new Car();
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -20,7 +22,17 @@ function imageLoadingDoneSoStartGame(){
 	setInterval(updateAll, 1000/framesPerSecond);
 
 	setupInput();
-	trackReset();
+    
+    loadLevel(levelOne);
+    
+}
+
+function loadLevel(whichLevel){
+    
+    trackGrid = whichLevel.slice();
+    
+    greenCar.carReset(carPic2,'Groenne lyn');
+	blueCar.carReset(carPic,'Blå banan');
 }
 
 function updateAll() {
@@ -29,15 +41,17 @@ function updateAll() {
 }
 
 function moveAll() {
-    carTrackHandeling();
-    carMove();   
+    //carTrackHandeling(blueCar);
+    greenCar.carMove();   
+    blueCar.carMove();   
 }
 
 
 function drawAll() {
     
 	drawTracks();
-    drawCar();
+    greenCar.drawCar();   
+    blueCar.drawCar();
 
 	/*var mouseTrackCol = Math.floor(mouseX / TRACK_W);
 	var mouseTrackRow = Math.floor(mouseY / TRACK_H);

@@ -1,4 +1,5 @@
 var carPic = document.createElement("img");
+var carPic2 = document.createElement("img");
 
 var trackPics = [];
 var picsToLoad = 0;
@@ -25,6 +26,7 @@ function loadImages(){
     
     var imageList = [
         {varName: carPic, theFile: "player1car.png"},
+        {varName: carPic2, theFile: "player2car.png"},
         
         {trackType: TRACK_ROAD, theFile: "track_road.png"},
         {trackType: TRACK_WALL, theFile: "track_wall.png"},
@@ -37,8 +39,7 @@ function loadImages(){
     
     for(var i=0; i<imageList.length;i++){
        
-        if(imageList[i].varName != undefined){       
-           
+        if(imageList[i].varName != undefined){
            beginLoadingImage(imageList[i].varName,imageList[i].theFile);    
         }else {
             loadImageForTrackCode(imageList[i].trackType,imageList[i].theFile);
