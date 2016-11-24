@@ -1,8 +1,9 @@
 const WORLD_W = 50;
 const WORLD_H = 50;
 const WORLD_GAP = 2;
-const WORLD_COLS = 16;
-const WORLD_ROWS = 12;
+const WORLD_COLS = 20;
+const WORLD_ROWS = 15;
+
 var levelOne =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
 				 1, 0, 4, 0, 4, 0, 1, 0, 2, 0, 1, 0, 1, 4, 4, 1,
@@ -15,6 +16,8 @@ var levelOne =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				 1, 0, 5, 0, 5, 0, 5, 0, 3, 0, 1, 1, 1, 1, 1, 1,
 				 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 				 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+
 var worldGrid = [];
 
 const TILE_GROUND = 0;

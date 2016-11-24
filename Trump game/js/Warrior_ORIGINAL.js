@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 3.0;
+const PLAYER_MOVE_SPEED = 50.0;
 
 function warriorClass() {
 	this.x = 75;
@@ -52,16 +52,16 @@ function warriorClass() {
 		var nextX = this.x;
 		var nextY = this.y;
 
-		if(this.keyHeld_North) {
+		if(direction == 'UP') {
 			nextY -= PLAYER_MOVE_SPEED;
 		}
-		if(this.keyHeld_East) {
+		if(direction == 'RIGHT') {
 			nextX += PLAYER_MOVE_SPEED;
 		}
-		if(this.keyHeld_South) {
+		if(direction == 'DOWN') {
 			nextY += PLAYER_MOVE_SPEED;
 		}
-		if(this.keyHeld_West) {
+		if(direction == 'LEFT') {
 			nextX -= PLAYER_MOVE_SPEED;
 		}
 

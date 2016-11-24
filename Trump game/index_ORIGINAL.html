@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>The Trump game</title>
+        <link rel="stylesheet" type="text/css" href="main.css" />
+    </head>
+    <body>
+        <p id="debugText">Key count will be displayed here</p>
+        <canvas id="gameCanvas" width="800" height="600" ></canvas>
+        sliderX: <p id="sliderX"></p>
+        sliderY: <p id="sliderY"></p>
+        playerDistFromCameraFocusX: <p id="playerDistFromCameraFocusX"></p>
+        playerDistFromCameraFocusY: <p id="playerDistFromCameraFocusY"></p>
+        cameraFocusCenterX: <p id="cameraFocusCenterX"></p>
+        cameraFocusCenterY: <p id="cameraFocusCenterY"></p>
+        
+        <p>if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X(150))</p>
+        
+        
+        <p>if(playerDistFromCameraFocusY > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y(100))</p>
+        
+        <script src="js/cameraControl.js"></script>
+        <script src="js/touch.js"></script> 
+        <script src="js/GraphicsCommon.js"></script> 
+        <script src="js/ImageLoading.js"></script>
+        <script src="js/Input.js"></script> 
+        <script src="js/Warrior.js"></script> 
+        <script src="js/World.js"></script> 
+        <script src="js/Main.js"></script>    
+    </body>
+</html>
