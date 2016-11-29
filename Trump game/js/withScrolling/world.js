@@ -77,7 +77,7 @@ function isBrickAtPixelCoord(hitPixelX, hitPixelY) {
     
     var brickIndex = brickTileToIndex(tileCol, tileRow);
     
-    console.log('brickIndex: '+brickIndex);
+    //console.log('brickIndex: '+brickIndex);
     
     return (brickGrid[brickIndex] == 1);
 }
@@ -123,26 +123,19 @@ function drawOnlyBricksOnScreen() {
     
     
       
-    document.getElementById('cameraRightMostCol').innerHTML = cameraRightMostCol;
-    document.getElementById('cameraBottomMostRow').innerHTML = cameraBottomMostRow;
+    //document.getElementById('cameraRightMostCol').innerHTML = cameraRightMostCol;
+    //document.getElementById('cameraBottomMostRow').innerHTML = cameraBottomMostRow;
     
-    document.getElementById('cameraLeftMostCol').innerHTML = cameraLeftMostCol;
-    document.getElementById('cameraTopMostRow').innerHTML = cameraTopMostRow;
+    //document.getElementById('cameraLeftMostCol').innerHTML = cameraLeftMostCol;
+    //document.getElementById('cameraTopMostRow').innerHTML = cameraTopMostRow;
     
     
     for(var eachCol=cameraLeftMostCol; eachCol<cameraRightMostCol; eachCol++) {
       for(var eachRow=cameraTopMostRow; eachRow<cameraBottomMostRow; eachRow++) {
         
           var tileType = returnTileTypeAtColRow(eachCol,eachRow);  
-          //console.log('tiletype: '+tileType);
           canvasContext.drawImage(worldPics[tileType],drawTileX,drawTileY);      
-          
-          drawTileY += BRICK_W;  
-          
-          //oldHTML = document.getElementById('XY').innerHTML;
-          //oldHTML = oldHTML+' -> X:'+drawTileX+' Y:'+drawTileY+' Tile:'+tileType;
-          //document.getElementById('XY').innerHTML = oldHTML;
-
+          drawTileY += BRICK_W;
           
       } // end of for eachRow
     drawTileX += BRICK_H;   

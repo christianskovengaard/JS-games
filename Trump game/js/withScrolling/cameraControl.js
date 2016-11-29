@@ -48,12 +48,12 @@ function cameraFollow() {
     }
     var maxPanRight = BRICK_COLS * BRICK_W - canvas.width;
     
-    document.getElementById('maxPanRight').innerHTML = maxPanRight;
+    //document.getElementById('maxPanRight').innerHTML = maxPanRight;
     
     
     var maxPanTop = BRICK_ROWS * BRICK_H - canvas.height;
     
-    document.getElementById('maxPanTop').innerHTML = maxPanTop;
+    //document.getElementById('maxPanTop').innerHTML = maxPanTop;
    
     
     if(camPanX > maxPanRight) {

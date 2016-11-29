@@ -39,7 +39,24 @@ function Trump() {
         document.getElementById('playerX').innerHTML = this.x;
         document.getElementById('playerY').innerHTML = this.y;
         
-        drawBitmapCenteredWithRotation(this.myWarriorPic, this.x,this.y, 0);
+        //Check for if canvas has scrolled on X-axis
+        if(camPanX > 0 && camPanY == 0){
+            //Redraw the amount the canvas has scrolled from the players position
+            newX = this.x - camPanX;
+            drawBitmapCenteredWithRotation(this.myWarriorPic, newX,this.y, 0);       
+        } else if(camPanX == 0  && camPanY > 0){
+            newY = this.y - camPanY;
+            drawBitmapCenteredWithRotation(this.myWarriorPic, this.x,newY, 0);       
+        } else if(camPanX > 0 && camPanY > 0){
+            newX = this.x - camPanX;
+            newY = this.y - camPanY;
+            drawBitmapCenteredWithRotation(this.myWarriorPic, newX,newY, 0);
+        }else{
+            drawBitmapCenteredWithRotation(this.myWarriorPic, this.x,this.y, 0);        
+        }
+        
+        
+        
     }
     
     

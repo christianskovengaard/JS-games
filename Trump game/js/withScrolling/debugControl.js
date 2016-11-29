@@ -18,7 +18,7 @@ function initInputForDebugging() {
     canvas.addEventListener('mousemove', updateMousePos);
 }
 
-function setKeyHoldState(thisKey, setTo) {
+function setKeyHoldState(thisKey) {
     
     
     var nextX = sliderX;
@@ -42,19 +42,20 @@ function setKeyHoldState(thisKey, setTo) {
     }
     
     if(isBrickAtPixelCoord(nextX,nextY) == false) {
-      sliderX = nextX;
-      sliderY = nextY;
-    
+        
+        sliderX = nextX;
+        sliderY = nextY;
         
         trump.x = nextX;
         trump.y = nextY;
+
         
     }
 }
 
 
 function keyPressed(evt) {
-    setKeyHoldState(evt.keyCode, true);
+    setKeyHoldState(evt.keyCode);
     evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 
