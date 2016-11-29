@@ -28,7 +28,8 @@ function loadImages() {
 		{worldType: TILE_WALL, theFile: "world_wall.png"},
 		{worldType: TILE_GOAL, theFile: "world_goal.png"},
 		{worldType: TILE_KEY, theFile: "world_key.png"},
-		{worldType: TILE_DOOR, theFile: "world_door.png"}
+		{worldType: TILE_DOOR, theFile: "world_door.png"},
+        {worldType: TILE_BRIDGE, theFile: "world_bridge.png"}
 		];
 
 	picsToLoad = imageList.length;

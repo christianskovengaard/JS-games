@@ -1,8 +1,9 @@
 var canvas, canvasContext;
 
+var blueWarrior = new warriorClass();
+
 window.onload = function() {
-    
-    canvas = document.getElementById('gameCanvas');
+	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
 	colorRect(0,0, canvas.width,canvas.height, 'black');
@@ -10,40 +11,31 @@ window.onload = function() {
 
 	loadImages();
 }
-  
 
 function imageLoadingDoneSoStartGame() {
-	
-    //So we can use the keybord for controls
-    initInputForDebugging();
-    
-    // these next few lines set up our game logic and render to happen 30 times per second
-    var framesPerSecond = 30;
-    setInterval(function() {
-        moveEverything();
-        drawEverything();
-      }, 1000/framesPerSecond);
-      
-    sliderReset();
-    
-    //Load level
-    worldGrid = brickGrid.slice();
-}
-  
-function moveEverything() {
-    sliderMove();
-    cameraFollow();
-}
-  
+	var framesPerSecond = 30;
+	setInterval(updateAll, 1000/framesPerSecond);
 
-function drawEverything() {
-    
-    // drawing black to erase previous frame, doing before .translate() since
-    // its coordinates are not supposed to scroll when the camera view does
-    colorRect(0, 0, canvas.width, canvas.height, 'black');
+	setupInput();
 
-    
-    drawWorld();
-    //trump.draw();
-    
+	loadLevel(levelOne);
 }
+
+function loadLevel(whichLevel) {
+	worldGrid = whichLevel.slice();
+	blueWarrior.reset(warriorPic, "Blue Storm");
+}
+
+function updateAll() {
+	moveAll();
+	drawAll();
+}
+
+function moveAll() {
+	blueWarrior.move();
+}
+
+function drawAll() {
+	drawWorld();
+	blueWarrior.draw();
+} 

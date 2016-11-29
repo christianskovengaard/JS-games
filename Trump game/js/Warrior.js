@@ -77,6 +77,10 @@ function warriorClass() {
 				this.x = nextX;
 				this.y = nextY;
 				break;
+            case TILE_BRIDGE:
+				this.x = nextX;
+				this.y = nextY;
+				break;    
 			case TILE_GOAL:
 				console.log(this.name + " WINS!");
 				loadLevel(levelOne);
