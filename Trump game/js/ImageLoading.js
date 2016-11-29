@@ -1,4 +1,6 @@
 var warriorPic = document.createElement("img");
+var enemyPic_red = document.createElement("img");
+var enemyPic_yellow = document.createElement("img");
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -23,6 +25,8 @@ function loadImageForWorldCode(worldCode, fileName) {
 function loadImages() {
 	var imageList = [
 		{varName: warriorPic, theFile: "warrior.png"},
+        {varName: enemyPic_red, theFile: "enemy_red.png"},
+        {varName: enemyPic_yellow, theFile: "enemy_yellow.png"},
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_wall.png"},

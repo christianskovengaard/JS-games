@@ -5,16 +5,14 @@ var camPanY = 0.0;
 const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X = 150;
 const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y = 100;
 
-var sliderX = 0;
-var sliderY = 0;
 
-
+function sliderReset() {
+    // center slider on screen
+    sliderX = canvas.width/2;
+    sliderY = canvas.height/2;
+}
 
 function cameraFollow() {
-    
-    document.getElementById('camPanY').innerHTML = camPanY;
-    document.getElementById('camPanX').innerHTML = camPanX;
-    
     
     var cameraFocusCenterX = camPanX + canvas.width/2;
     var cameraFocusCenterY = camPanY + canvas.height/2;
@@ -27,7 +25,6 @@ function cameraFollow() {
         camPanX += PLAYER_MOVE_SPEED;
       } else {
         camPanX -= PLAYER_MOVE_SPEED;
-          
       }
     }
     if(playerDistFromCameraFocusY > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y) {
@@ -47,15 +44,7 @@ function cameraFollow() {
       camPanY = 0;
     }
     var maxPanRight = BRICK_COLS * BRICK_W - canvas.width;
-    
-    //document.getElementById('maxPanRight').innerHTML = maxPanRight;
-    
-    
     var maxPanTop = BRICK_ROWS * BRICK_H - canvas.height;
-    
-    //document.getElementById('maxPanTop').innerHTML = maxPanTop;
-   
-    
     if(camPanX > maxPanRight) {
       camPanX = maxPanRight;
     }

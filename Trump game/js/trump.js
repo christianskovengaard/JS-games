@@ -10,7 +10,7 @@ function Trump() {
     
     
     
-    this.reset = function(whichImage, warriorName) {
+    this.init = function(whichImage, warriorName) {
 		this.name = warriorName;
 		this.myWarriorPic = whichImage;
 		
@@ -19,8 +19,8 @@ function Trump() {
 		for(var eachRow=0;eachRow<BRICK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<BRICK_COLS;eachCol++) {
 				var arrayIndex = brickTileToIndex(eachCol, eachRow); 
-				if(worldGrid[arrayIndex] == TILE_PLAYERSTART) {
-					worldGrid[arrayIndex] = TILE_GROUND;
+				if(levelGrid[arrayIndex] == TILE_PLAYERSTART) {
+					levelGrid[arrayIndex] = TILE_GROUND;
 					this.x = eachCol * BRICK_W + BRICK_W/2;
 					this.y = eachRow * BRICK_H + BRICK_H/2;
                     //Set sliderX and sliderY for the cameraControl
@@ -36,8 +36,8 @@ function Trump() {
     
     this.draw = function() {
         
-        document.getElementById('playerX').innerHTML = this.x;
-        document.getElementById('playerY').innerHTML = this.y;
+        //document.getElementById('playerX').innerHTML = this.x;
+        //document.getElementById('playerY').innerHTML = this.y;
         
         //Check for if canvas has scrolled on X-axis
         if(camPanX > 0 && camPanY == 0){
