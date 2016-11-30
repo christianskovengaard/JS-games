@@ -18,44 +18,21 @@ function initInputForDebugging() {
     canvas.addEventListener('mousemove', updateMousePos);
 }
 
-function setKeyHoldState(thisKey) {
-    
-    
-    var nextX = sliderX;
-    var nextY = sliderY;
-    
-    if(thisKey == KEY_LEFT_ARROW) {
-      //holdLeft = setTo;
-        nextX += -PLAYER_MOVE_SPEED;
-    }
-    if(thisKey == KEY_RIGHT_ARROW) {
-      //holdRight = setTo;
-        nextX += PLAYER_MOVE_SPEED;
-    }
-    if(thisKey == KEY_UP_ARROW) {
-      //holdUp = setTo;
-        nextY += -PLAYER_MOVE_SPEED;
-    }
-    if(thisKey == KEY_DOWN_ARROW) {
-      //holdDown = setTo;
-        nextY += PLAYER_MOVE_SPEED;
-    }
-    
-    if(isBrickAtPixelCoord(nextX,nextY) == false) {
-        
-        sliderX = nextX;
-        sliderY = nextY;
-        
-        trump.x = nextX;
-        trump.y = nextY;
-
-        
-    }
-}
-
-
 function keyPressed(evt) {
-    setKeyHoldState(evt.keyCode);
+    
+    if(evt.keyCode == KEY_LEFT_ARROW) {
+      trump.move('LEFT');
+    }
+    if(evt.keyCode == KEY_RIGHT_ARROW) {
+        trump.move('RIGHT');
+    }
+    if(evt.keyCode == KEY_UP_ARROW) {
+        trump.move('UP');
+    }
+    if(evt.keyCode == KEY_DOWN_ARROW) {
+        trump.move('DOWN');
+    }
+    
     evt.preventDefault(); // without this, arrow keys scroll the browser!
 }
 

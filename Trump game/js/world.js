@@ -6,6 +6,9 @@ const TILE_KEY = 4;
 const TILE_DOOR = 5;
 const TILE_BRIDGE = 6;
 const TILE_ENEMYSTART = 7;
+const TILE_MONEY = 8;
+const TILE_FAME = 9;
+const TILE_PUSSY = 10;
 
 const BRICK_W = 50;
 const BRICK_H = 50;
@@ -19,18 +22,18 @@ var BRICK_ROWS = 15;
 
 var levelOne =
       [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+        1, 10, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
         1, 0, 2, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 7, 0, 0, 0, 1, 0, 0, 0, 1,
         1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1,
         1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1,
         1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
         1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1,
-        1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+        1, 0, 1, 1, 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
         1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
         1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1,
         1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 1, 1, 1, 3, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
@@ -63,6 +66,9 @@ function loadLevel(whichLevel,levelName){
         BRICK_COLS = 20;
         BRICK_ROWS = 15;    
     }*/
+    
+    //Set number of enemies
+    enemyTotalNumberStart = 3;
     
     //Load level by copying the current level to levelGrid array
     levelGrid = whichLevel.slice();
@@ -190,5 +196,82 @@ function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_GOAL ||
 			checkTileType == TILE_KEY ||
 			checkTileType == TILE_DOOR ||
+            checkTileType == TILE_MONEY ||
+            checkTileType == TILE_PUSSY ||
+            checkTileType == TILE_FAME ||
 			checkTileType == TILE_BRIDGE);
+}
+
+
+function getTileIndexAtPixelCoord(atX, atY) {
+	var warriorWorldCol = Math.floor(atX / BRICK_W);
+	var warriorWorldRow = Math.floor(atY / BRICK_H);
+	var worldIndexUnderWarrior = brickTileToIndex(warriorWorldCol, warriorWorldRow);
+
+	if(warriorWorldCol >= 0 && warriorWorldCol < BRICK_COLS &&
+		warriorWorldRow >= 0 && warriorWorldRow < BRICK_ROWS) {
+		return worldIndexUnderWarrior;
+	} // end of valid col and row
+
+	return undefined;
+} // end of warriorWorldHandling func
+
+
+function isEnemyAtIndex(atX,atY){
+    
+    for( var i=0; i<enemyList.length; i++ ) {
+        if(enemyList[i].x == atX && enemyList[i].y == atY){
+            return true;
+        }
+    }
+}
+
+function isPlayerAtEnemyIndex(atX,atY){
+   if(trump.x == atX && trump.y == atY){
+       return true
+   }
+}
+
+function hitTrump(directionHit){
+        
+    var nextX = trump.x;
+    var nextY = trump.y;
+
+    //Player loses life and bounces back
+    if(directionHit == 'RIGHT') {
+      nextX += PLAYER_MOVE_SPEED;
+    }
+    if(directionHit == 'LEFT') {
+      nextX += -(PLAYER_MOVE_SPEED);
+    }
+    if(directionHit == 'DOWN') {
+      nextY += PLAYER_MOVE_SPEED;
+    }
+    if(directionHit == 'UP') {
+      nextY += -(PLAYER_MOVE_SPEED);
+    }
+    
+    //TODO: Check if trump walk into wall
+    console.error('TODO: Check if trump walk into wall!');
+    
+    trump.x = nextX;
+    trump.y = nextY;
+    sliderX = nextX;
+    sliderY = nextY;
+    
+    loosePoints();
+}
+
+
+function hitEnemy(atX,atY){
+    //Kill enemy and gain points/pussy/money/fame
+    
+    //Find enemy in enemyList
+    for( var i=0; i<enemyList.length; i++ ) {
+        if(enemyList[i].x == atX && enemyList[i].y && atY){
+            enemyList.splice(i,1);
+        }
+    }
+    
+    
 }

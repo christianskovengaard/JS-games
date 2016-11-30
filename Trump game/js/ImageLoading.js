@@ -33,7 +33,10 @@ function loadImages() {
 		{worldType: TILE_GOAL, theFile: "world_goal.png"},
 		{worldType: TILE_KEY, theFile: "world_key.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"},
-        {worldType: TILE_BRIDGE, theFile: "world_bridge.png"}
+        {worldType: TILE_BRIDGE, theFile: "world_bridge.png"},
+        {worldType: TILE_MONEY, theFile: "money.png"},
+        {worldType: TILE_FAME, theFile: "fame.png"},
+        {worldType: TILE_PUSSY, theFile: "pussy.png"}
 		];
 
 	picsToLoad = imageList.length;

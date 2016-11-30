@@ -2,8 +2,7 @@ var canvas, canvasContext;
 
 
 var trump = new Trump();
-var enemy_red = new Enemy();
-var enemy_yellow = new Enemy();
+var enemy = new Enemy();
 
 window.onload = function() {
     
@@ -36,18 +35,16 @@ function imageLoadingDoneSoStartGame() {
     //init Trump
     trump.init(warriorPic, "Mr. D. Trump");
     
-    //init enemy
-    enemy_red.init(enemyPic_red);
-    enemy_yellow.init(enemyPic_yellow);
+    //init enemies
+    enemy.init();
     
-    enemy_red.move(enemy_red,1);
-    enemy_yellow.move(enemy_yellow,2);
 }
 
 
 function moveEverything() {
     
     cameraFollow();
+    
 }
   
 
@@ -59,12 +56,15 @@ function drawEverything() {
 
     //Draw the world
     drawWorld();
+    
     //Draw trump
     trump.draw();
     
-    //Draw enemy
-    enemy_red.draw(enemy_red);
-    enemy_yellow.draw(enemy_yellow);
+    //Draw enemies
+    enemy.draw();
+    
+    //Draw points
+    drawPoints();
     
     //Debugging with mouse
     showBrickIndexWithMouse();

@@ -20,5 +20,12 @@ function colorCircle(centerX,centerY, radius, fillColor) {
 
 function colorText(showWords, textX,textY, fillColor) {
 	canvasContext.fillStyle = fillColor;
+    canvasContext.font="10px Arial";
+	canvasContext.fillText(showWords, textX, textY);
+}
+
+function colorTextBig(showWords, textX,textY, fillColor) {
+	canvasContext.fillStyle = fillColor;
+    canvasContext.font="20px Arial";
 	canvasContext.fillText(showWords, textX, textY);
 }
