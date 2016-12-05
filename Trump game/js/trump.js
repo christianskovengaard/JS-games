@@ -16,8 +16,8 @@ function Trump() {
 	this.y = 0;
 	this.myWarriorPic; // which picture to use
 	this.name = "Untitled Warrior";
-    
-    
+    this.isSpeaking = false;
+    this.isSpeakingTimeout = false;
     
     this.init = function(whichImage, warriorName) {
 		this.name = warriorName;
@@ -45,22 +45,10 @@ function Trump() {
         
         //document.getElementById('playerX').innerHTML = this.x;
         //document.getElementById('playerY').innerHTML = this.y;
+
+        var atXatY = hasCameraScrolled(this.x,this.y);
         
-        var newX = this.x;
-        var newY = this.y;
-        
-        //Check for if canvas has scrolled on X-axis
-        if(camPanX > 0 && camPanY == 0){
-            //Redraw the amount the canvas has scrolled from the players position
-            newX = this.x - camPanX;
-        } else if(camPanX == 0  && camPanY > 0){
-            newY = this.y - camPanY;
-        } else if(camPanX > 0 && camPanY > 0){
-            newX = this.x - camPanX;
-            newY = this.y - camPanY;
-        }
-        
-        drawBitmapCenteredWithRotation(this.myWarriorPic, newX,newY, 0);        
+        drawBitmapCenteredWithRotation(this.myWarriorPic, atXatY[0],atXatY[1], 0);        
         
     }
     
@@ -107,7 +95,7 @@ function Trump() {
                 sliderX = nextX;
                 sliderY = nextY;
               break;    
-            case TILE_MONEY:
+            case TILE_MONEY:    
                 gainPoints(MONEY_POINT);
                 levelGrid[walkIntoTileIndex] = TILE_GROUND;
                 trump.x = nextX;
@@ -115,6 +103,16 @@ function Trump() {
                 sliderX = nextX;
                 sliderY = nextY;
                 break;
+                
+            case TILE_COIN:
+                gainPoints(MONEY_POINT);
+                alert('TODO: remove coin!');
+                trump.x = nextX;
+                trump.y = nextY;
+                sliderX = nextX;
+                sliderY = nextY;
+                break;
+                
             case TILE_PUSSY:
                 gainPoints(PUSSY_POINT);
                 levelGrid[walkIntoTileIndex] = TILE_GROUND;
@@ -137,6 +135,32 @@ function Trump() {
         
         
         
+        }
+        
+    }
+    
+    
+    this.speak = function(words,duration){
+            
+        var atXatY = hasCameraScrolled(this.x,this.y);
+        
+        drawBitmapCenteredWithRotation(speakBubble,(atXatY[0]+90),(atXatY[1]-60),0);
+        
+        colorText(words,atXatY[0]+35,atXatY[1]-75,'black');
+        
+        if(!this.isSpeakingTimeout){
+            
+            
+            
+            this.isSpeakingTimeout = true;
+            
+            console.log('isSpeakingTimeout: '+this.isSpeakingTimeout);
+            
+            setTimeout(function(){
+                console.log('STOP!');
+                trump.isSpeaking = false;
+                trump.isSpeakingTimeout = false;
+            },duration)
         }
         
     }

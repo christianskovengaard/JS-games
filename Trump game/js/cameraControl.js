@@ -63,3 +63,22 @@ function cameraFollow() {
       camPanY = maxPanTop;
     }
 }
+
+function hasCameraScrolled(atX,atY){
+    
+    var newX = atX;
+    var newY = atY;
+        
+    //Check for if canvas has scrolled on X-axis
+    if(camPanX > 0 && camPanY == 0){
+        //Redraw the amount the canvas has scrolled from the players position
+        newX = atX - camPanX;
+    } else if(camPanX == 0  && camPanY > 0){
+        newY = atY - camPanY;
+    } else if(camPanX > 0 && camPanY > 0){
+        newX = atX - camPanX;
+        newY = atY - camPanY;
+    }
+    
+    return [newX,newY];
+}

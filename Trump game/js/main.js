@@ -61,6 +61,9 @@ function drawEverything() {
     
     //Draw trump
     trump.draw();
+    if(trump.isSpeaking){
+        trump.speak('Grab them by the pussy!',2000);
+    }
     
     //Draw enemies
     enemy.draw();

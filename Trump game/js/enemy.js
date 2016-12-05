@@ -232,21 +232,9 @@ function Enemy() {
         //Draw enmies in enemyList
         for( var i=0; i<enemyList.length; i++ ) {
             
-            var newX = enemyList[i].x;
-            var newY = enemyList[i].y;
-
-            //Check for if canvas has scrolled on X-axis
-            if(camPanX > 0 && camPanY == 0){
-                //Redraw the amount the canvas has scrolled from the players position
-                newX = enemyList[i].x - camPanX;
-            } else if(camPanX == 0  && camPanY > 0){
-                newY = enemyList[i].y - camPanY;
-            } else if(camPanX > 0 && camPanY > 0){
-                newX = enemyList[i].x - camPanX;
-                newY = enemyList[i].y - camPanY;
-            }
-
-            drawBitmapCenteredWithRotation(enemyList[i].enemyPic, newX,newY, 0);   
+            var atXatY = hasCameraScrolled(enemyList[i].x,enemyList[i].y);
+            
+            drawBitmapCenteredWithRotation(enemyList[i].enemyPic, atXatY[0],atXatY[1], 0);   
         }
         
     }

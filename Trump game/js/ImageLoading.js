@@ -1,6 +1,9 @@
 var warriorPic = document.createElement("img");
 var enemyPic_red = document.createElement("img");
 var enemyPic_yellow = document.createElement("img");
+var speakBubble = document.createElement("img");
+var coinPic = document.createElement("img");
+                  
 
 var worldPics = [];
 
@@ -28,6 +31,8 @@ function loadImages() {
 		{varName: warriorPic, theFile: "warrior.png"},
         {varName: enemyPic_red, theFile: "enemy_red.png"},
         {varName: enemyPic_yellow, theFile: "enemy_yellow.png"},
+        {varName: speakBubble, theFile: "speakBubble.png"},
+        {varName: coinPic, theFile: "coin.png"},
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_wall.png"},
@@ -35,6 +40,7 @@ function loadImages() {
 		{worldType: TILE_KEY, theFile: "world_key.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"},
         {worldType: TILE_BRIDGE, theFile: "world_bridge.png"},
+        {worldType: TILE_AIR, theFile: "world_air.png"},
         {worldType: TILE_MONEY, theFile: "money.png"},
         {worldType: TILE_FAME, theFile: "fame.png"},
         {worldType: TILE_PUSSY, theFile: "pussy.png"},
