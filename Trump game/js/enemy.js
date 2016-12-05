@@ -1,10 +1,13 @@
 const ENEMY_MOVE_SPEED = 50.0;
 
 
+//This value is set in world.js when loading level
 var enemyTotalNumberStart = 0;
 
 var enemyList = [];
     
+var enemyIntervalList = [];
+var enemyTimeoutList = [];
 
 function Enemy() {
     
@@ -61,11 +64,15 @@ function Enemy() {
     this.moveSingle = function(enemy,route){
         
         console.info('move enemy');
+        console.error('TODO: Refactor code don\'t repeat yourself! ');
         
+        var intervalId;
+        var timeoutId;
         
         if(route == 0){
                 
-            setTimeout(function(){
+                /*
+                setTimeout(function(){
                     //UP
                     enemy.y += -ENEMY_MOVE_SPEED;
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
@@ -88,68 +95,110 @@ function Enemy() {
                     enemy.x += ENEMY_MOVE_SPEED; 
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
 
-                },4000)
+                },4000)*/
                     
-            setInterval(function(){
+           intervalId = setInterval(function(){
+                    
+                enemyIntervalList.splice(route, 1);
+                enemyIntervalList.splice(route, 0, intervalId);
 
-                    runFirstTime = false;
+                var timeoutList = [];
 
-                    setTimeout(function(){
-                        //UP
-                        enemy.y += -ENEMY_MOVE_SPEED;
-                        if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
-                    },1000)
+                timeoutId = setTimeout(function(){
+                    //UP
+                    enemy.y += -ENEMY_MOVE_SPEED;
+                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
+                },1000)
 
-                    setTimeout(function(){ 
-                        //LEFT
-                        enemy.x += -ENEMY_MOVE_SPEED; 
-                        if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
-                    },2000)
+                timeoutList.push(timeoutId);
 
-                    setTimeout(function(){
-                        //DOWN
-                        enemy.y += ENEMY_MOVE_SPEED;
-                        if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
-                    },3000)
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
 
-                    setTimeout(function(){
-                        //RIGHT
-                        enemy.x += ENEMY_MOVE_SPEED; 
-                        if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
+                timeoutId = setTimeout(function(){ 
+                    //LEFT
+                    enemy.x += -ENEMY_MOVE_SPEED; 
+                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
+                },2000)
 
-                    },4000)
+                timeoutList.push(timeoutId);
 
-                }, 4000);          
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
+
+                timeoutId = setTimeout(function(){
+                    //DOWN
+                    enemy.y += ENEMY_MOVE_SPEED;
+                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
+                },3000)
+
+                timeoutList.push(timeoutId);
+
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
+
+                timeoutId = setTimeout(function(){
+                    //RIGHT
+                    enemy.x += ENEMY_MOVE_SPEED; 
+                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
+                },4000)
+
+                timeoutList.push(timeoutId);
+
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
+
+           }, 4000);          
                 
                
         }    
         
         else if(route == 1){
-            setInterval(function(){
-
-                setTimeout(function(){      
+          intervalId = setInterval(function(){
+                
+               enemyIntervalList.splice(route, 1);
+               enemyIntervalList.splice(route, 0, intervalId);
+              
+               var timeoutList = [];   
+              
+                timeoutId = setTimeout(function(){      
                     //LEFT
                     enemy.x += -ENEMY_MOVE_SPEED; 
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
                 },1000)
+                
+                timeoutList.push(timeoutId);
+                    
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
 
-                setTimeout(function(){ 
+                timeoutId = setTimeout(function(){ 
                     //UP
                     enemy.y += -ENEMY_MOVE_SPEED;
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
                 },2000)
+                
+                timeoutList.push(timeoutId);
+                    
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
 
-                setTimeout(function(){
+                timeoutId = setTimeout(function(){
                      //RIGHT
                     enemy.x += ENEMY_MOVE_SPEED;
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
                 },3000)
 
-                setTimeout(function(){
+                timeoutId = setTimeout(function(){
                    //DOWN
                     enemy.y += ENEMY_MOVE_SPEED; 
                     if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
                 },4000)
+                
+                timeoutList.push(timeoutId);
+                    
+                enemyTimeoutList.splice(route, 1);
+                enemyTimeoutList.splice(route,0,timeoutList);
 
             }, 4600);
         }

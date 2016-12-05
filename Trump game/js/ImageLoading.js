@@ -1,6 +1,7 @@
 var warriorPic = document.createElement("img");
 var enemyPic_red = document.createElement("img");
 var enemyPic_yellow = document.createElement("img");
+
 var worldPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -36,7 +37,8 @@ function loadImages() {
         {worldType: TILE_BRIDGE, theFile: "world_bridge.png"},
         {worldType: TILE_MONEY, theFile: "money.png"},
         {worldType: TILE_FAME, theFile: "fame.png"},
-        {worldType: TILE_PUSSY, theFile: "pussy.png"}
+        {worldType: TILE_PUSSY, theFile: "pussy.png"},
+        {worldType: TILE_COIN, theFile: "coin.png"}
 		];
 
 	picsToLoad = imageList.length;

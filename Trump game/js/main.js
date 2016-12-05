@@ -4,6 +4,8 @@ var canvas, canvasContext;
 var trump = new Trump();
 var enemy = new Enemy();
 
+var animations = false;
+
 window.onload = function() {
     
     canvas = document.getElementById('gameCanvas');
@@ -37,7 +39,7 @@ function imageLoadingDoneSoStartGame() {
     
     //init enemies
     enemy.init();
-    
+
 }
 
 
@@ -68,5 +70,12 @@ function drawEverything() {
     
     //Debugging with mouse
     showBrickIndexWithMouse();
+    
+    //Run animations
+    for(var i=0;animationsList.length > i; i++){
+        
+        animationsList[i].render();
+        animationsList[i].update();
+    }
     
 }
