@@ -4,7 +4,6 @@ var canvas, canvasContext;
 var trump = new Trump();
 var enemy = new Enemy();
 
-var animations = false;
 
 window.onload = function() {
     
@@ -13,8 +12,9 @@ window.onload = function() {
 
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
-
+    
 	loadImages();
+        
 }
   
 
@@ -23,7 +23,6 @@ function imageLoadingDoneSoStartGame() {
     //So we can use the keybord for controls
     initInputForDebugging();
     
-      
     // these next few lines set up our game logic and render to happen 30 times per second
     var framesPerSecond = 30;
     setInterval(function() {
@@ -31,14 +30,8 @@ function imageLoadingDoneSoStartGame() {
         drawEverything();
       }, 1000/framesPerSecond);
     
-    //Load first level
-    loadLevel(levelOne);
-    
-    //init Trump
-    trump.init(warriorPic, "Mr. D. Trump");
-    
-    //init enemies
-    enemy.init();
+    //Load first level, and init trump and init enemies
+    loadLevel('levelOne');
 
 }
 
@@ -72,7 +65,7 @@ function drawEverything() {
     drawPoints();
     
     //Debugging with mouse
-    showBrickIndexWithMouse();
+    //showBrickIndexWithMouse();
     
     //Run animations
     for(var i=0;animationsList.length > i; i++){

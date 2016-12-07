@@ -102,17 +102,15 @@ function Trump() {
                 trump.y = nextY;
                 sliderX = nextX;
                 sliderY = nextY;
-                break;
-                
+                break;            
             case TILE_COIN:
                 gainPoints(MONEY_POINT);
-                alert('TODO: remove coin!');
+                hitCoin(nextX,nextY);
                 trump.x = nextX;
                 trump.y = nextY;
                 sliderX = nextX;
                 sliderY = nextY;
-                break;
-                
+                break;         
             case TILE_PUSSY:
                 gainPoints(PUSSY_POINT);
                 levelGrid[walkIntoTileIndex] = TILE_GROUND;
@@ -129,6 +127,12 @@ function Trump() {
                 sliderX = nextX;
                 sliderY = nextY;
                 break;
+            
+            case TILE_GOAL:
+                //Win game, load next level
+                loadLevel('levelTwo');
+                break;
+                
             case TILE_WALL:
                 default:
               break;

@@ -1,0 +1,228 @@
+/*
+-------------------------------------------------------------- */
+/* Mixins, functions and variables
+-------------------------------------------------------------- */
+
+/*
+-------------------------------------------------------------- */
+/* Variables
+-------------------------------------------------------------- */
+
+/*
+-------------------------------------------------------------- */
+/* Mixins
+-------------------------------------------------------------- */
+
+@mixin respond($breakpoint) {
+  
+  // Very small screens (in portrait mode)
+  @if $breakpoint == "xsmall" {
+    @media (max-width: 25em) {
+      @content;
+    }
+  }
+  
+  // Bigger screens, mobile portrait or landscape
+  @if $breakpoint == "small" {
+    @media (max-width: 45em) {
+      @content;
+    }
+  }
+ 
+  // Medium screens
+  @else if $breakpoint == "medium" {
+    @media (min-width:45em) and (max-width: 65em) {
+      @content;
+    }
+  }
+ 
+  // Larger screens
+  @else if $breakpoint == "large" {
+    @media (min-width:65em) and (max-width: 90em) {
+      @content;
+    }
+  }
+  
+  // Big screens
+  @else if $breakpoint == "xlarge" {
+    @media (min-width: 90em) {
+      @content;
+    }
+  }
+  
+} // end mixin
+
+// Usage:
+// @include respond(small) { ... }
+// @include respond(medium) { ... }
+// @include respond(large) { ... }
+
+//
+// -------------------------------------------------
+// Font Family
+
+@mixin font($family, $weight) {
+  font-family: $family;
+  font-weight: $weight;
+}
+
+// ---------------------------------------------------------------------
+// Font size function
+// Set a rem size function with pixel fallback
+// REM = Root em (relative to font size set in html tag)
+// http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/
+// 
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+//  Create the mixin
+// 
+// Usage: 
+// 
+// p {
+//   @include font-size(14px)
+// }
+// 
+// Output:
+// p {
+//   font-size: 14px; // Will be overridden if browser supports rem
+//   font-size: 0.8rem;
+// }
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+
+//
+// -------------------------------------------------
+// Transition / animations mixins
+// 
+ 
+// Keyframes mixin
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+  
+}
+
+
+// Animation
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};      
+}
+
+@mixin animation-duration($dur) {
+  -webkit-animation-duration: $dur;
+  -moz-animation-duration: $dur;
+  -ms-animation-duration: $dur;
+  -o-animation-duration: $dur;
+  animation-duration: $dur; 
+}
+
+@mixin animation-origin($origin) {
+  -webkit-animation-origin: #{$origin};
+  -moz-animation-origin: #{$origin};
+  -ms-animation-origin: #{$origin};
+  -o-animation-origin: #{$origin};
+  animation-origin: #{$origin}; 
+}
+
+@mixin animation-iteration($count) {
+  -webkit-animation-iteration-count: $count;
+  -moz-animation-iteration-count: $count;
+  -ms-animation-iteration-count: $count;
+  -o-animation-iteration-count: $count;
+  animation-iteration-count: $count; 
+}
+
+@mixin animation-timing($timing) {
+  -webkit-animation-timing-function: $timing;
+  -moz-animation-timing-function: $timing;
+  -ms-animation-timing-function: $timing;
+  -o-animation-timing-function: $timing;
+  animation-timing-function: $timing; 
+}
+
+// Animation delay
+
+@mixin delay($delay) {
+  -webkit-animation-delay: $delay;
+  -moz-animation-delay: $delay;
+  -ms-animation-delay: $delay;
+  -o-animation-delay: $delay;
+  animation-delay: $delay; 
+}
+
+// Animation transitions
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transform($transform...) {
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Single side border-radius
+
+@mixin border-top-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+   -webkit-border-top-left-radius: $radius;
+   border-top-left-radius: $radius;
+   background-clip: padding-box;
+}
+@mixin border-right-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+     -webkit-border-top-right-radius: $radius;
+     border-top-right-radius: $radius;
+     background-clip: padding-box;
+}
+@mixin border-bottom-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+   -webkit-border-bottom-left-radius: $radius;
+   border-bottom-left-radius: $radius;
+   background-clip: padding-box;
+}
+@mixin border-left-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+     -webkit-border-top-left-radius: $radius;
+     border-top-left-radius: $radius;
+     background-clip: padding-box;
+}

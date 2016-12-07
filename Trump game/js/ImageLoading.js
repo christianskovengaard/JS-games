@@ -31,7 +31,7 @@ function loadImages() {
 		{varName: warriorPic, theFile: "warrior.png"},
         {varName: enemyPic_red, theFile: "enemy_red.png"},
         {varName: enemyPic_yellow, theFile: "enemy_yellow.png"},
-        {varName: speakBubble, theFile: "speakBubble.png"},
+        {varName: speakBubble, theFile: "speakbubble.png"},
         {varName: coinPic, theFile: "coin.png"},
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},

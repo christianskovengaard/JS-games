@@ -17,6 +17,12 @@ function Enemy() {
     
        
     this.init = function(){
+        
+        //Clear enemies
+        enemyList = [];
+        enemyIntervalList = [];
+        enemyTimeoutList = [];
+        
         //Draw x-number of enemies
         for(var i=0;i<enemyTotalNumberStart;i++){
             this.create();

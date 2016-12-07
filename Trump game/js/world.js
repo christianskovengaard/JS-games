@@ -15,17 +15,8 @@ const TILE_AIR = 12;
 const BRICK_W = 50;
 const BRICK_H = 50;
 
-//const BRICK_COLS = 20;
-//const BRICK_ROWS = 15;
-
-var BRICK_COLS = 20;
-var BRICK_ROWS = 15;
-
-
-//Aniamtion sprites
-var animationsList = []
-var totalNumberOfAnimations = 0;
-var aniamtionsRun = 0;
+var BRICK_COLS = 0;
+var BRICK_ROWS = 0;
 
 
 /*
@@ -56,39 +47,69 @@ var levelOne =
         12, 12, 12, 12, 12, 12, 12, 12, 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 12, 12, 12, 12, 6 , 6 , 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 12, 12, 12, 12, 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
-        12, 12, 1 , 0 , 0 , 0 , 11, 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
-        12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
-        12, 12, 1 , 0 , 7 , 1 , 1 , 1 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 11, 0, 11 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 11 , 0 ,11 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 7 , 1 , 1 , 1 , 0 , 7 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 12, 12, 12, 12, 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 3 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12];
+
+var levelTwo =
+      [ 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 1 , 1 , 1 , 1 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 1 , 9 , 2 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 1 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 1 , 0,  0 , 0,  1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 12, 12, 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 12, 12, 6 , 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 12, 12, 12, 12, 12, 12, 6, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
+        12, 12, 1 , 0 , 0 , 7 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12,
         12, 12, 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 12, 12, 12, 12, 12, 12, 12, 12, 12];
-
-
 
 
  
 var levelGrid = [];
-  
 
-function loadLevel(whichLevel,levelName){
-    
-    
-    /*if(levelName == 'LevelTwo'){
-        BRICK_COLS = 20;
-        BRICK_ROWS = 15;    
-    }*/
+//Init the levelList
+var levelList = [
+    {levelName: 'levelOne', levelGrid: levelOne, levelBrickCols: 20, levelBrickRows: 16},
+    {levelName: 'levelTwo', levelGrid: levelTwo, levelBrickCols: 20, levelBrickRows: 12}
+];
 
+function loadLevel(whichLevel){
     
-    //Set number of enemies
-    enemyTotalNumberStart = countEnemies(whichLevel);
-    //Set number of animations
-    totalNumberOfAnimations = countAnimations(whichLevel);
+    //Clear animations
+    animationsList = [];
     
-    //Load level by copying the current level to levelGrid array
-    levelGrid = whichLevel.slice();
+    for(var i=0;i<levelList.length;i++) {
+		if(levelList[i].levelName === whichLevel) {
+            
+            BRICK_COLS = levelList[i].levelBrickCols;
+            BRICK_ROWS = levelList[i].levelBrickRows;   
+            
+            //Set number of enemies
+            enemyTotalNumberStart = countEnemies(levelList[i].levelGrid);
+            //Set number of animations
+            totalNumberOfAnimations = countAnimations(levelList[i].levelGrid);
+
+            //Load level by copying the current level to levelGrid array
+            levelGrid = levelList[i].levelGrid.slice();
+            
+            //init Trump
+            trump.init(warriorPic, "Mr. D. Trump");
+    
+            //init enemies
+            enemy.init();
+            
+        }
+    }
     
 }
+
 
 function countEnemies(whichLevel){
     return whichLevel.filter(function(x){return x==TILE_ENEMYSTART}).length;
@@ -281,6 +302,17 @@ function isPlayerAtEnemyIndex(atX,atY){
    }
 }
 
+
+function hitCoin(atX,atY){
+    //Find coin in animationsList and remove
+    for( var i=0; i<animationsList.length; i++ ) {
+        //Plus x and y because the tile is animated
+        if((animationsList[i].atX+25) == atX && (animationsList[i].atY+25) == atY){
+            animationsList.splice(i,1);        
+        }
+    }    
+}
+
 /*
 *   Enemy hits trump
 */
@@ -298,7 +330,7 @@ function hitEnemy(atX,atY){
     
     //Find enemy in enemyList and remove
     for( var i=0; i<enemyList.length; i++ ) {
-        if(enemyList[i].x == atX && enemyList[i].y && atY){
+        if(enemyList[i].x == atX && enemyList[i].y == atY){
             
             enemyList.splice(i,1);
             

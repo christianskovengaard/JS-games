@@ -1,4 +1,9 @@
 
+//Aniamtion sprites
+var animationsList = []
+var totalNumberOfAnimations = 0;
+var aniamtionsRun = 0;
+
 function sprite (options) {
 
     var that = {},
@@ -35,23 +40,8 @@ function sprite (options) {
     };
 
     that.render = function () {
-        
-        
-        var newX = that.atX;
-        var newY = that.atY;
-        
-        //Check for if canvas has scrolled on X-axis or Y-axis
-        if(camPanX > 0 && camPanY == 0){
-            //Redraw the amount the canvas has scrolled from the players position
-            newX = that.atX - camPanX;
-        } else if(camPanX == 0  && camPanY > 0){
-            newY = that.atY - camPanY;
-        } else if(camPanX > 0 && camPanY > 0){
-            newX = that.atX - camPanX;
-            newY = that.atY - camPanY;
-        }    
-        
-        
+    
+      var atXatY = hasCameraScrolled(that.atX,that.atY); 
         
       // Draw the animation
       that.context.drawImage(
@@ -60,8 +50,8 @@ function sprite (options) {
         0, // Source y
         that.width / numberOfFrames, // Source width (Frame width)
         that.height, // Source height (Frame height)
-        newX,//that.atX, // position x
-        newY, //that.atY, // position y
+        atXatY[0],//that.atX, // position x
+        atXatY[1], //that.atY, // position y
         that.width / numberOfFrames, // Destination width (Frame width)
         that.height); //Destination height (Frame height)
     };

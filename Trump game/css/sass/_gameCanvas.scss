@@ -1,0 +1,22 @@
+#gameCanvas{
+    @respond(xsmall){
+        height: 600;
+        width: 420;
+    }
+    @respond(small){
+        height: 600;
+        width: 450;
+    }
+    @respond(medium){
+        height: 600;
+        width: 500;
+    }
+    @respond(large){
+        height: 600;
+        width: 600;
+    }
+    @respond(xlarge){
+        height: 600;
+        width: 800;
+    }
+}
