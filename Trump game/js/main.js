@@ -10,18 +10,29 @@ window.onload = function() {
     canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
+    //Event listen for touch for button
+    var btn = document.getElementById('startGameBtn');
+    btn.addEventListener("touchend", StartGame, false);
+    
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
     
+    //Load all image assets
 	loadImages();
+    
+    //Load all audio assets
+    loadAllAudio();
+    
+    //So we can use the keybord for controls
+    initInputForDebugging();
         
 }
   
 
-function imageLoadingDoneSoStartGame() {
-	
-    //So we can use the keybord for controls
-    initInputForDebugging();
+function StartGame(){
+    
+    document.getElementById('gameCanvas').setAttribute('style','display:block');
+    document.getElementById('welcomeScreen').setAttribute('style','display:none');
     
     // these next few lines set up our game logic and render to happen 30 times per second
     var framesPerSecond = 30;
@@ -32,14 +43,20 @@ function imageLoadingDoneSoStartGame() {
     
     //Load first level, and init trump and init enemies
     loadLevel('levelOne');
+    
+}
 
+function audioLoadingDone(){
+    console.info('Audio loading done: Show welcome screen!');
+}
+
+function imageLoadingDone() {
+	document.getElementById('startGameBtn').removeAttribute('disabled');
 }
 
 
-function moveEverything() {
-    
+function moveEverything() {   
     cameraFollow();
-    
 }
   
 

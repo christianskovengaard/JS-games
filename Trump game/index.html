@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         <title>The Trump game</title>
-        <link rel="stylesheet" type="text/css" href="mainTEST.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     </head>
     <body>
         
@@ -19,15 +20,25 @@
         
         <!--<p>player x: <span id="playerX"></span></p>
         <p>player y: <span id="playerY"></span></p>-->
-
-        <canvas id="gameCanvas" width="450" height="600" ></canvas>
+        
+        
+        <div id="welcomeScreen">
+            <h1>Trump the World!</h1>
+            <button id="startGameBtn" onclick="StartGame();" disabled="disabled">Start the game</button>
+        </div>
+        
+        <canvas id="gameCanvas" width="450" height="650"></canvas>
         
         <!-- Only for debugging with keyboard -->
         <script src="js/debugControl.js"></script>
         <!-- end -->
         
+        <!-- Screen detection -->
+        <script src="js/stylingControl.js"></script>
+        
         <script src="js/GraphicsAnimation.js"></script> 
-        <script src="js/GraphicsCommon.js"></script> 
+        <script src="js/GraphicsCommon.js"></script>
+        <script src="js/audioLoading.js"></script>
         <script src="js/ImageLoading.js"></script>
         <script src="js/cameraControl.js"></script>
         <script src="js/touchControl.js"></script>

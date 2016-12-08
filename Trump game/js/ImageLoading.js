@@ -12,7 +12,7 @@ var picsToLoad = 0; // set automatically based on imageList in loadImages()
 function countLoadedImagesAndLaunchIfReady() {
 	picsToLoad--;
 	if(picsToLoad == 0) {
-		imageLoadingDoneSoStartGame();
+		imageLoadingDone();
 	}
 }
 
@@ -34,6 +34,12 @@ function loadImages() {
         {varName: speakBubble, theFile: "speakbubble.png"},
         {varName: coinPic, theFile: "coin.png"},
 
+        
+        {worldType: TILE_BUILDING_1, theFile: "bygning1.png"},
+        {worldType: TILE_BUILDING_2, theFile: "bygning2.png"},
+        {worldType: TILE_BUILDING_3, theFile: "bygning3.png"},
+        {worldType: TILE_BUILDING_4, theFile: "bygning4.png"},
+        
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_wall.png"},
 		{worldType: TILE_GOAL, theFile: "world_goal.png"},

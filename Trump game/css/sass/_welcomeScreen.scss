@@ -1,0 +1,11 @@
+#welcomeScreen{
+    
+    
+    
+    #startGameBtn{
+        width: 100px;
+        height: 50px;
+        background-color: red;
+        @include border-radius(2px);
+    }
+}

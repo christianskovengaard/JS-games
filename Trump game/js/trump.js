@@ -106,6 +106,8 @@ function Trump() {
             case TILE_COIN:
                 gainPoints(MONEY_POINT);
                 hitCoin(nextX,nextY);
+                levelGrid[walkIntoTileIndex] = TILE_GROUND;
+                playAudio(RICH);
                 trump.x = nextX;
                 trump.y = nextY;
                 sliderX = nextX;
