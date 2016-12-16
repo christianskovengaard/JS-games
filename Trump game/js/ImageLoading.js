@@ -1,8 +1,15 @@
-var warriorPic = document.createElement("img");
+
 var enemyPic_red = document.createElement("img");
 var enemyPic_yellow = document.createElement("img");
 var speakBubble = document.createElement("img");
 var coinPic = document.createElement("img");
+
+
+var trumpAnimatedStanding = document.createElement("img");
+var trumpAnimatedGoRight = document.createElement("img");
+var trumpAnimatedGoLeft = document.createElement("img");
+var trumpAnimatedGoUp = document.createElement("img");
+var trumpAnimatedGoDown = document.createElement("img");
                   
 
 var worldPics = [];
@@ -28,11 +35,16 @@ function loadImageForWorldCode(worldCode, fileName) {
 
 function loadImages() {
 	var imageList = [
-		{varName: warriorPic, theFile: "warrior.png"},
         {varName: enemyPic_red, theFile: "enemy_red.png"},
         {varName: enemyPic_yellow, theFile: "enemy_yellow.png"},
         {varName: speakBubble, theFile: "speakbubble.png"},
         {varName: coinPic, theFile: "coin.png"},
+        
+        {varName: trumpAnimatedStanding, theFile: "trumpAnimatedStanding.png"},
+        {varName: trumpAnimatedGoRight, theFile: "trumpAnimatedGoRight.png"},
+        {varName: trumpAnimatedGoLeft, theFile: "trumpAnimatedGoLeft.png"},
+        {varName: trumpAnimatedGoUp, theFile: "trumpAnimatedGoUp.png"},
+        {varName: trumpAnimatedGoDown, theFile: "trumpAnimatedGoDown.png"},
 
         
         {worldType: TILE_BUILDING_1, theFile: "bygning1.png"},
@@ -50,7 +62,8 @@ function loadImages() {
         {worldType: TILE_MONEY, theFile: "money.png"},
         {worldType: TILE_FAME, theFile: "fame.png"},
         {worldType: TILE_PUSSY, theFile: "pussy.png"},
-        {worldType: TILE_COIN, theFile: "coin.png"}
+        {worldType: TILE_COIN, theFile: "coin.png"},
+        {worldType: TILE_GARBAGE_CAN, theFile: "can.png"}
 		];
 
 	picsToLoad = imageList.length;

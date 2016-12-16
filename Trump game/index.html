@@ -27,14 +27,17 @@
             <button id="startGameBtn" onclick="StartGame();" disabled="disabled">Start the game</button>
         </div>
         
+        <div id="levelScreen">
+            <h1>Get ready for the next level</h1>
+            <button id="loadLevelBtn" onclick="loadLevel()">Start level</button>
+        </div>
+        
         <canvas id="gameCanvas" width="450" height="650"></canvas>
         
         <!-- Only for debugging with keyboard -->
         <script src="js/debugControl.js"></script>
         <!-- end -->
         
-        <!-- Screen detection -->
-        <script src="js/stylingControl.js"></script>
         
         <script src="js/GraphicsAnimation.js"></script> 
         <script src="js/GraphicsCommon.js"></script>
@@ -42,6 +45,7 @@
         <script src="js/ImageLoading.js"></script>
         <script src="js/cameraControl.js"></script>
         <script src="js/touchControl.js"></script>
+        <script src="js/screen.js"></script>
         <script src="js/points.js"></script>
         <script src="js/trump.js"></script>
         <script src="js/enemy.js"></script>

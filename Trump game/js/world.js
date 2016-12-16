@@ -17,6 +17,11 @@ const TILE_BUILDING_2 = 14;
 const TILE_BUILDING_3 = 15;
 const TILE_BUILDING_4 = 16;
 
+
+const TILE_TRUMP_ANIMATED = 17;
+
+const TILE_GARBAGE_CAN = 18;
+
 const BRICK_W = 50;
 const BRICK_H = 50;
 
@@ -46,17 +51,17 @@ var levelTEST =
 var levelOne =
       [ 12, 12, 12, 12, 12, 12, 12, 12, 12, 
         12, 12, 12, 12, 16 , 15 , 14 , 13 , 1 , 
-        12, 12, 12, 12, 1 , 0 , 2 , 0 , 1 , 
+        12, 12, 12, 12, 1 , 17 , 2 , 18 , 1 , 
         12, 12, 12, 12, 1 , 0 , 0 , 0 , 1 , 
         12, 12, 12, 12, 1 , 0,  0 , 0,  1 , 
         12, 12, 12, 12, 12, 12, 6 , 12, 12, 
         12, 12, 12, 12, 6 , 6 , 6 , 12, 12, 
         12, 12, 12, 12, 6 , 12, 12, 12, 12, 
-        1 , 0 , 0 , 11, 0, 11 , 0 , 0 , 1 , 
-        1 , 0 , 0 , 11, 0 ,11 , 0 , 0 , 1 , 
+        1 , 0 , 0 , 0, 0,  11 , 0 , 18 , 1 , 
+        1 , 0 , 0 , 11, 0 , 0 , 0 , 0 , 1 , 
         1 , 0 , 7 , 1 , 1 , 1 , 0 , 7 , 1 , 
-        1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 
-        1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 
+        1 , 0 , 0 , 0 , 7 , 0 , 0 , 0 , 1 , 
+        1 , 18 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 
         12, 12, 12, 12, 6 , 12, 12, 12, 12, 
         1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 
         1 , 0 , 3 , 0 , 0 , 0 , 0 , 0 , 1 ];
@@ -86,24 +91,16 @@ var levelList = [
     {levelName: 'levelTwo', levelGrid: levelTwo, levelBrickCols: 9, levelBrickRows: 13}
 ];
 
-function loadLevel(whichLevel){
+function loadLevel(){
     
     //Clear animations
     animationsList = [];
     
-    //Clear timeout for enemies
-    for(var x=0;x<enemyTimeoutList.length;x++){
-       for(var i=0;i<enemyTimeoutList[x].length;i++){
-            clearTimeout(enemyTimeoutList[x][i]);
-       }
-    }
-    //Clear timeout for enemies
-    for(var i=0;i<enemyTimeoutList.length;i++){
-        clearInterval(enemyIntervalList[i]);    
-    }
+    //Get First level in levelList
+    console.log(levelList[0].levelName);
     
-    
-    
+    var whichLevel = levelList[0].levelName;
+     
     for(var i=0;i<levelList.length;i++) {
 		if(levelList[i].levelName === whichLevel) {
             
@@ -119,13 +116,19 @@ function loadLevel(whichLevel){
             levelGrid = levelList[i].levelGrid.slice();
             
             //init Trump
-            trump.init(warriorPic, "Mr. D. Trump");
+            trump.init();
     
             //init enemies
             enemy.init();
             
         }
     }
+    
+    //Remove level from levelList
+    levelList.shift();
+    
+    showGameCanvas();
+    nextLevelScreenHide();
     
 }
 
@@ -258,6 +261,23 @@ function drawBricksOnScreen() {
                   
               }
               
+          }else if(tileType == TILE_TRUMP_ANIMATED){
+              
+              if(totalNumberOfAnimations > aniamtionsRun){
+                  
+                  // Create animation STANDING
+                  animatedTrumpSpriteStanding = sprite({
+                        context: canvasContext,
+                        width: 500,
+                        height: 50,
+                        image: trumpAnimatedStanding,
+                        numberOfFrames: 10,
+                        ticksPerFrame: 2,
+                        atX: drawTileX,
+                        atY: drawTileY
+                    });
+              }
+              
           }else{
               canvasContext.drawImage(worldPics[tileType],drawTileX,drawTileY);      
           }
@@ -288,6 +308,8 @@ function tileTypeHasTransparency(checkTileType) {
             checkTileType == TILE_PUSSY ||
             checkTileType == TILE_FAME ||
             checkTileType == TILE_COIN ||
+            checkTileType == TILE_TRUMP_ANIMATED ||
+            checkTileType == TILE_GARBAGE_CAN ||
 			checkTileType == TILE_BRIDGE);
 }
 
@@ -321,7 +343,9 @@ function isPlayerAtEnemyIndex(atX,atY){
    }
 }
 
-
+/*
+* Trump hits coin
+*/
 function hitCoin(atX,atY){
     //Find coin in animationsList and remove
     for( var i=0; i<animationsList.length; i++ ) {
@@ -364,4 +388,75 @@ function hitEnemy(atX,atY){
         
     }    
     
+}
+
+function hitGarbageCan(toX,toY,fromX,fromY){
+    
+    //Make random number 1-4
+    var randNumber = Math.floor((Math.random() * 4) + 1);
+    //Make coins
+    makeCoin(randNumber,toX,toY);
+}
+
+/*
+*   Spawn x coins at postion x,y
+*/
+function makeCoin(numberOfCoins,toX,toY){
+    
+    //Index 0 = LEFT
+    //Index 1 = RIGHT
+    //Index 2 = UP
+    //Index 3 = DOWN
+    var tileIndexes = [];
+    
+    //Index 0 = LEFT
+    //Index 1 = RIGHT
+    //Index 2 = UP
+    //Index 3 = DOWN
+    var toXtoY = [];
+    
+    //LEFT
+    var tileIndexLeft = getTileIndexAtPixelCoord(toX-PLAYER_MOVE_SPEED,toY);
+    tileIndexes.push(tileIndexLeft);
+    toXtoY.push([toX-PLAYER_MOVE_SPEED,toY]);
+        
+    //RIGHT
+    var tileIndexRight = getTileIndexAtPixelCoord(toX+PLAYER_MOVE_SPEED,toY);
+    tileIndexes.push(tileIndexRight);
+    toXtoY.push([toX+PLAYER_MOVE_SPEED,toY]);
+    
+    //UP
+    var tileIndexUp = getTileIndexAtPixelCoord(toX,toY-PLAYER_MOVE_SPEED);
+    tileIndexes.push(tileIndexUp);
+    toXtoY.push([toX,toY-PLAYER_MOVE_SPEED]);
+    
+    //DOWN
+    var tileIndexDown = getTileIndexAtPixelCoord(toX,toY+PLAYER_MOVE_SPEED);
+    tileIndexes.push(tileIndexDown);
+    toXtoY.push([toX,toY+PLAYER_MOVE_SPEED]);
+    
+    for( var i=0; i<numberOfCoins; i++ ) {
+        
+        //Get random tileIndex from tileIndexes
+        var randNumber = Math.floor((Math.random() * 4) + 0);
+        
+        //Check if tileIndex is ground
+        if(levelGrid[tileIndexes[randNumber]] == TILE_GROUND){
+            
+            levelGrid[tileIndexes[randNumber]] = TILE_COIN;
+            
+            var coin = sprite({
+                    context: canvasContext,
+                    width: 500,
+                    height: 50,
+                    image: coinPic,
+                    numberOfFrames: 10,
+                    ticksPerFrame: 1,
+                    atX: toXtoY[randNumber][0]-25,
+                    atY: toXtoY[randNumber][1]-25
+            });
+
+           animationsList.push(coin); 
+        }    
+   } 
 }

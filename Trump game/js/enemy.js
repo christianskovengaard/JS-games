@@ -18,6 +18,17 @@ function Enemy() {
        
     this.init = function(){
         
+        //Clear timeout for enemies
+        for(var x=0;x<enemyTimeoutList.length;x++){
+           for(var i=0;i<enemyTimeoutList[x].length;i++){
+                clearTimeout(enemyTimeoutList[x][i]);
+           }
+        }
+        //Clear timeout for enemies
+        for(var i=0;i<enemyTimeoutList.length;i++){
+            clearInterval(enemyIntervalList[i]);    
+        }
+        
         //Clear enemies
         enemyList = [];
         enemyIntervalList = [];
@@ -67,169 +78,32 @@ function Enemy() {
     }
     
     
+    
     this.moveSingle = function(enemy,route){
         
         console.info('move enemy');
-        console.error('TODO: Refactor code don\'t repeat yourself! ');
         
         var intervalId;
-        var timeoutId;
         
-        if(route == 0){
-                
-                /*
-                setTimeout(function(){
-                    //UP
-                    enemy.y += -ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
-                },1000)
-
-                setTimeout(function(){ 
-                    //LEFT
-                    enemy.x += -ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
-                },2000)
-
-                setTimeout(function(){
-                    //DOWN
-                    enemy.y += ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
-                },3000)
-
-                setTimeout(function(){
-                    //RIGHT
-                    enemy.x += ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
-
-                },4000)*/
-                    
-           intervalId = setInterval(function(){
+        var intervalTime = 2000+(route*100);
+        
+        if(route >= 0){
+            
+          intervalId = setInterval(function(){
                     
                 enemyIntervalList.splice(route, 1);
                 enemyIntervalList.splice(route, 0, intervalId);
 
-                var timeoutList = [];
-
-                timeoutId = setTimeout(function(){
-                    //UP
-                    enemy.y += -ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
-                },1000)
-
-                timeoutList.push(timeoutId);
-
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-                timeoutId = setTimeout(function(){ 
-                    //LEFT
-                    enemy.x += -ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
-                },2000)
-
-                timeoutList.push(timeoutId);
-
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-                timeoutId = setTimeout(function(){
-                    //DOWN
-                    enemy.y += ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
-                },3000)
-
-                timeoutList.push(timeoutId);
-
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-                timeoutId = setTimeout(function(){
-                    //RIGHT
-                    enemy.x += ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
-                },4000)
-
-                timeoutList.push(timeoutId);
-
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-           }, 4000);          
-                
+                var timeoutList = []; 
                
-        }    
-        
-        else if(route == 1){
-          intervalId = setInterval(function(){
-                
-               enemyIntervalList.splice(route, 1);
-               enemyIntervalList.splice(route, 0, intervalId);
-              
-               var timeoutList = [];   
-              
-                timeoutId = setTimeout(function(){      
-                    //LEFT
-                    enemy.x += -ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('LEFT');
-                },1000)
-                
-                timeoutList.push(timeoutId);
-                    
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-                timeoutId = setTimeout(function(){ 
-                    //UP
-                    enemy.y += -ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('UP');
-                },2000)
-                
-                timeoutList.push(timeoutId);
-                    
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-                timeoutId = setTimeout(function(){
-                     //RIGHT
-                    enemy.x += ENEMY_MOVE_SPEED;
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('RIGHT');
-                },3000)
-
-                timeoutId = setTimeout(function(){
-                   //DOWN
-                    enemy.y += ENEMY_MOVE_SPEED; 
-                    if (isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump('DOWN');
-                },4000)
-                
-                timeoutList.push(timeoutId);
-                    
-                enemyTimeoutList.splice(route, 1);
-                enemyTimeoutList.splice(route,0,timeoutList);
-
-            }, 4600);
-        }
-        
-        else {
-           setInterval(function(){
-
-                setTimeout(function(){
-                    
-                    //LEFT
-                    enemy.x += -ENEMY_MOVE_SPEED; 
-                    isPlayerAtEnemyIndex(enemy.x,enemy.y);
-                },1000)
-
-                setTimeout(function(){
-                     //RIGHT
-                    enemy.x += ENEMY_MOVE_SPEED; 
-                    isPlayerAtEnemyIndex(enemy.x,enemy.y);
-                },3000)
-
-
-            }, 3000); 
-        }
-        
+                //New dynamic route handeling
+                dynamicRoute(enemy,route,timeoutList);
                
+           }, intervalTime);      
+        }else{
+            console.error('No route for enemy defined!')
+            console.info(enemy);  
+        }               
     }
     
     
@@ -245,4 +119,88 @@ function Enemy() {
         
     }
     
+}
+
+/*
+*   Move enemy randomly up,down,left,right
+*/
+function dynamicRoute(enemy,route,timeoutList){
+    
+    //Random 1 ==  up, 2 == down, 3 == left, 4 == right
+    var randNumber = Math.floor((Math.random() * 4) + 1);
+    
+    var newX = enemy.x;
+    var newY = enemy.y;
+    
+    
+    if(randNumber == 1){
+        //UP
+        newY += -ENEMY_MOVE_SPEED;    
+    }
+    if(randNumber == 2){
+        //DOWN
+        newY += ENEMY_MOVE_SPEED;
+    }
+    if(randNumber == 3){
+        //LEFT
+        newX += -ENEMY_MOVE_SPEED; 
+    }
+    if(randNumber == 4){
+        //RIGHT
+        newX += ENEMY_MOVE_SPEED; 
+    }
+
+    //Check for TILE_GROUND    
+    var tileIndex = getTileIndexAtPixelCoord(newX,newY);  
+    if(levelGrid[tileIndex] == TILE_GROUND){
+        
+        if(randNumber == 1){
+          enemyMoveRoute(enemy,route,'UP',1000,timeoutList);  
+        } 
+        if(randNumber == 2){
+          enemyMoveRoute(enemy,route,'DOWN',1000,timeoutList);  
+        }
+        if(randNumber == 3){
+          enemyMoveRoute(enemy,route,'LEFT',1000,timeoutList);  
+        }
+        if(randNumber == 4){
+          enemyMoveRoute(enemy,route,'RIGHT',1000,timeoutList);  
+        }
+        
+    }else{
+        //Call again to move enemy
+        dynamicRoute(enemy,route,timeoutList);
+    }
+       
+}
+
+function enemyMoveRoute(enemy,route,direction,timeToWait,timeoutList){
+         
+        timeoutId = setTimeout(function(){
+            
+                    if(direction == 'UP'){
+                        //UP
+                        enemy.y += -ENEMY_MOVE_SPEED;    
+                    }
+                    if(direction == 'DOWN'){
+                        //DOWN
+                        enemy.y += ENEMY_MOVE_SPEED;
+                    }
+                    if(direction == 'LEFT'){
+                        //LEFT
+                        enemy.x += -ENEMY_MOVE_SPEED; 
+                    }
+                    if(direction == 'RIGHT'){
+                        //RIGHT
+                        enemy.x += ENEMY_MOVE_SPEED; 
+                    }
+                    
+                    if(isPlayerAtEnemyIndex(enemy.x,enemy.y)) hitTrump(direction);
+        },timeToWait)
+
+        timeoutList.push(timeoutId);
+
+        enemyTimeoutList.splice(route, 1);
+        enemyTimeoutList.splice(route,0,timeoutList);
+        
 }

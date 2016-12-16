@@ -10,19 +10,26 @@ var moneyPointsTotal = 15;
 var famePointsTotal = 15;
 
 
+var animatedTrumpSpriteStanding;
+var animatedTrumpSpriteGoUp;
+var animatedTrumpSpriteGoDown;
+var animatedTrumpSpriteGoLeft;
+var animatedTrumpSpriteGoRight;
+
+var trumpDirection = 'STANDING';
+
 function Trump() { 
     
     this.x = 0;
 	this.y = 0;
-	this.myWarriorPic; // which picture to use
-	this.name = "Untitled Warrior";
+	//this.myWarriorPic; // which picture to use
+	this.name = "Mr. D Trump";
     this.isSpeaking = false;
     this.isSpeakingTimeout = false;
     
-    this.init = function(whichImage, warriorName) {
-		this.name = warriorName;
-		this.myWarriorPic = whichImage;
+    this.init = function() {
 		
+        //Set trump
 		for(var eachRow=0;eachRow<BRICK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<BRICK_COLS;eachCol++) {
 				var arrayIndex = brickTileToIndex(eachCol, eachRow); 
@@ -33,6 +40,10 @@ function Trump() {
                     //Set sliderX and sliderY for the cameraControl
                     sliderX = this.x;
                     sliderY = this.y;
+                    
+                    //Set trump animation
+                    this.initAnimations();
+                    
 					return;
 				} // end of player start if
 			} // end of col for
@@ -40,6 +51,54 @@ function Trump() {
 		console.log("NO PLAYER START FOUND!");
 	} // end of warriorReset func
     
+    this.initAnimations = function(){
+         
+        // Create animation UP
+        animatedTrumpSpriteGoUp = sprite({
+                context: canvasContext,
+                width: 500,
+                height: 50,
+                image: trumpAnimatedGoUp,
+                numberOfFrames: 10,
+                ticksPerFrame: 2,
+                atX: 0,
+                atY: 0
+            }); 
+        
+         // Create animation DOWN
+          animatedTrumpSpriteGoDown = sprite({
+                context: canvasContext,
+                width: 500,
+                height: 50,
+                image: trumpAnimatedGoDown,
+                numberOfFrames: 10,
+                ticksPerFrame: 2,
+                atX: 0,
+                atY: 0
+            });
+        // Create animation LEFT
+        animatedTrumpSpriteGoLeft = sprite({
+                context: canvasContext,
+                width: 500,
+                height: 50,
+                image: trumpAnimatedGoLeft,
+                numberOfFrames: 10,
+                ticksPerFrame: 2,
+                atX: 0,
+                atY: 0
+            });
+        // Create animation RIGHT
+        animatedTrumpSpriteGoRight = sprite({
+                context: canvasContext,
+                width: 500,
+                height: 50,
+                image: trumpAnimatedGoRight,
+                numberOfFrames: 10,
+                ticksPerFrame: 2,
+                atX: 0,
+                atY: 0
+            });
+    }
     
     this.draw = function() {
         
@@ -48,7 +107,58 @@ function Trump() {
 
         var atXatY = hasCameraScrolled(this.x,this.y);
         
-        drawBitmapCenteredWithRotation(this.myWarriorPic, atXatY[0],atXatY[1], 0);        
+        //Check for direction
+        if(trumpDirection == 'UP'){
+            //Minus 25 because it is a sprite
+            animatedTrumpSpriteGoUp.atX = this.x-25;
+            animatedTrumpSpriteGoUp.atY = this.y-25;
+            
+            //Run animation for trump
+            animatedTrumpSpriteGoUp.render();
+            animatedTrumpSpriteGoUp.update();
+        }
+        else if(trumpDirection == 'DOWN'){
+            
+            //Minus 25 because it is a sprite
+            animatedTrumpSpriteGoDown.atX = this.x-25;
+            animatedTrumpSpriteGoDown.atY = this.y-25;
+            
+            //Run animation for trump
+            animatedTrumpSpriteGoDown.render();
+            animatedTrumpSpriteGoDown.update();
+            
+        }
+        else if(trumpDirection == 'LEFT'){
+           //Minus 25 because it is a sprite
+            animatedTrumpSpriteGoLeft.atX = this.x-25;
+            animatedTrumpSpriteGoLeft.atY = this.y-25;
+            
+            //Run animation for trump
+            animatedTrumpSpriteGoLeft.render();
+            animatedTrumpSpriteGoLeft.update(); 
+        }
+        else if(trumpDirection == 'RIGHT'){
+           //Minus 25 because it is a sprite
+            animatedTrumpSpriteGoRight.atX = this.x-25;
+            animatedTrumpSpriteGoRight.atY = this.y-25;
+            
+            //Run animation for trump
+            animatedTrumpSpriteGoRight.render();
+            animatedTrumpSpriteGoRight.update(); 
+        }
+        else{
+            //Minus 25 because it is a sprite
+            animatedTrumpSpriteStanding.atX = this.x-25;
+            animatedTrumpSpriteStanding.atY = this.y-25;
+            
+            //Run animation for trump
+            animatedTrumpSpriteStanding.render();
+            animatedTrumpSpriteStanding.update(); 
+        }
+        
+        //Set direction back to STANDING
+        trumpDirection = 'STANDING';
+        
         
     }
     
@@ -59,6 +169,8 @@ function Trump() {
         
         var nextX = this.x;
         var nextY = this.y;
+        
+        trumpDirection = direction;
 
         if(direction == 'LEFT') {
           nextX += -PLAYER_MOVE_SPEED;
@@ -129,10 +241,18 @@ function Trump() {
                 sliderX = nextX;
                 sliderY = nextY;
                 break;
+            case TILE_GARBAGE_CAN:
+                hitGarbageCan(nextX,nextY,this.x,this.y);
+                levelGrid[walkIntoTileIndex] = TILE_GROUND;
+                trump.x = nextX;
+                trump.y = nextY;
+                sliderX = nextX;
+                sliderY = nextY;
+                break;    
             
             case TILE_GOAL:
                 //Win game, load next level
-                loadLevel('levelTwo');
+                nextLevelScreenShow();
                 break;
                 
             case TILE_WALL:

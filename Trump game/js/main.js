@@ -11,8 +11,11 @@ window.onload = function() {
 	canvasContext = canvas.getContext('2d');
 
     //Event listen for touch for button
-    var btn = document.getElementById('startGameBtn');
-    btn.addEventListener("touchend", StartGame, false);
+    var StartGameBtn = document.getElementById('startGameBtn');
+    StartGameBtn.addEventListener("touchend", StartGame, false);
+    
+    var loadLevelBtn = document.getElementById('loadLevelBtn');
+    loadLevelBtn.addEventListener("touchend", loadLevel, false);
     
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
@@ -31,8 +34,7 @@ window.onload = function() {
 
 function StartGame(){
     
-    document.getElementById('gameCanvas').setAttribute('style','display:block');
-    document.getElementById('welcomeScreen').setAttribute('style','display:none');
+    hideWelcomeScreen()
     
     // these next few lines set up our game logic and render to happen 30 times per second
     var framesPerSecond = 30;
@@ -42,12 +44,12 @@ function StartGame(){
       }, 1000/framesPerSecond);
     
     //Load first level, and init trump and init enemies
-    loadLevel('levelOne');
+    loadLevel();
     
 }
 
 function audioLoadingDone(){
-    console.info('Audio loading done: Show welcome screen!');
+    console.info('Audio loading done');
 }
 
 function imageLoadingDone() {
@@ -83,8 +85,9 @@ function drawEverything() {
     
     //Debugging with mouse
     //showBrickIndexWithMouse();
+
     
-    //Run animations
+    //Run animations for coins
     for(var i=0;animationsList.length > i; i++){
         
         animationsList[i].render();
